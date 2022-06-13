@@ -1,0 +1,12 @@
+.vscode/
+.idea/
+.env/
+env/
+venv/
+__pycache__/
+resource/
+test/
+build/
+dist/
+*.spec
+Release/
