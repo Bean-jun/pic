@@ -10,3 +10,5 @@ build/
 dist/
 *.spec
 Release/
+nginx/logs/*
+proxy/nginx/certs/*
