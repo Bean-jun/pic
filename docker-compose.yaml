@@ -1,0 +1,22 @@
+version: "3.9"
+services:
+  pic_server:
+    build: .
+    image: pic_server
+    volumes:
+      - $PWD/resource/uploads:/home/server/resource/uploads
+      - $PWD/logs:/var/log
+    ports:
+      - "8001:8001"
+    restart: always
+  Proxy:
+    image: proxy:latest
+    build: nginx/proxy
+    volumes:
+      - $PWD/nginx/logs:/var/log/nginx
+      - $PWD/resource/uploads:/usr/share/nginx/html/resource/uploads
+    restart: always
+    ports:
+      - 80:80
+    depends_on:
+      - pic_server
