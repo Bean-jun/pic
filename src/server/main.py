@@ -1,35 +1,21 @@
-import os
 from flask import Flask, current_app, request
 from flask.views import MethodView
+from config import ConfigMode
 
-from tools import *
+def create_app(config):
+    app = Flask(__name__)
+    app.config.from_object(ConfigMode.get(config))
 
-Server_Address_Host = "http://192.168.1.100/"
+    from view import init_app
+    init_app(app)
 
-app = Flask(__name__)
-UPLOAD_FOLDER = 'resource/uploads'
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
-
-class Resource(MethodView):
-
-    def post(self, *args, **kwargs):
-        try:
-            for file in request.files:
-                data = request.files.get(file)
-                dst = os.path.join(UPLOAD_FOLDER, file)
-                data.save(dst)
-            return trueReturn({"source": Server_Address_Host+dst})
-        except Exception as e:
-            if current_app.config["DEBUG"] == True:
-                print(e.args)
-                msg = e.args
-            else:
-                msg = ""
-            return falseReturn(msg)
+    return app
 
 
-app.add_url_rule(rule="/", view_func=Resource.as_view("resource"))
+app = create_app("develop")
 
 if __name__ == "__main__":
-    app.run("0.0.0.0", 8001, True)
+    host = app.config["FLASK_HOST"]
+    port = app.config["FLASK_PORT"]
+    debug = app.config["DEBUG"]
+    app.run(host, port, debug)

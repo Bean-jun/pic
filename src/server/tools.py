@@ -1,3 +1,4 @@
+import os
 from flask import jsonify
 
 
@@ -15,3 +16,10 @@ def falseReturn(data="", code=400, message="faile"):
         "code": code,
         "message": message
     })
+
+
+def mkdir(dir):
+    try:
+        os.makedirs(dir)
+    except Exception as e:
+        pass

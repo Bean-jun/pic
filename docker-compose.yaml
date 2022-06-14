@@ -4,7 +4,8 @@ services:
     build: .
     image: pic_server
     volumes:
-      - $PWD/resource/uploads:/home/resource/uploads
+      - $PWD/resource/uploads:/home/server/resource/uploads
+      - $PWD/logs:/var/log
     ports:
       - "8001:8001"
     restart: always
