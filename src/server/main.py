@@ -1,6 +1,6 @@
-from flask import Flask, current_app, request
-from flask.views import MethodView
+from flask import Flask
 from config import ConfigMode
+
 
 def create_app(config):
     app = Flask(__name__)
