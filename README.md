@@ -4,7 +4,7 @@
 
 1. server配置
 
-    修改`src/server/config.py`文件中`self.HOST`行，用于图床获取时的地址，你可以直接填写你的ip
+    修改`src/server/config.py`文件中`HOST`行，用于图床获取时的地址，你可以直接填写你的ip
 ## 二、client
 
 1. client使用
