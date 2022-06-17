@@ -1,57 +1,29 @@
-import os
-import sys
-import requests
+import click
+from tools import *
 
 
-# 文件白名单
-FILE_EXT_LIST = {
-    ".png",
-    ".jpg",
-    ".jpeg",
-    ".gif"
-}
+@click.command()
+@click.option("--url", "-u", default="http://localhost/")
+@click.argument("filelist", nargs=-1)
+def cli(url, filelist):
 
-
-def Request(method, url, data=None, json=None, **kwargs):
-    response = requests.request(method=method,
-                                url=url,
-                                data=data,
-                                json=json,
-                                **kwargs)
-    return response
-
-
-def main():
-    args = sys.argv
-
-    if len(args) < 1:
-        print("please set upload file")
+    status, msg = check_url(url)
+    if not status:
+        print(msg)
         return
 
-    if not args[1].startswith("http"):
-        print("please set upload address")
-        return
-
-    URL = args[1]
-
-    for file in args[2:]:
-        filename, ext = os.path.splitext(file)
-        if ext.lower() not in FILE_EXT_LIST:
-            print("current not allow")
+    for file in filelist:
+        status, filename_or_msg = check_file_allow(file)
+        if not status:
+            print(filename_or_msg)
             return
 
-        with open(file, "rb") as f:
-            data = f.read()
-        filename = "%s%s" % (filename.rsplit("/", 1)[-1], ext)
-        response = Request("POST", URL, files={filename: data})
-        if response.status_code == 200:
-            data = response.json()
-            print((data.get("data") or {}).get("source"))
-            return (data.get("data") or {}).get("source")
-        else:
-            print("")
-            return ""
+        data = read_file(file)
+        filename = clean_filename(filename_or_msg)
+        response = Request("POST", url, files={filename: data})
+        response_txt = parse_response(response)
+        print(response_txt)
 
 
 if __name__ == "__main__":
-    main()
+    cli()

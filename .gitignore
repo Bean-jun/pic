@@ -14,3 +14,4 @@ nginx/logs/*
 proxy/nginx/certs/*
 run_app.sh
 logs/
+temp/
