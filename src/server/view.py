@@ -14,7 +14,7 @@ class Resource(MethodView):
                 data = request.files.get(file)
                 dst = os.path.join(current_app.config["UPLOAD_FOLDER"], file)
                 data.save(dst)
-            return trueReturn({"source": current_app.config["HOST"]+dst})
+            return trueReturn({"source": clean_path(current_app.config["HOST"]+dst)})
         except FileNotFoundError:
             mkdir(current_app.config["UPLOAD_FOLDER"])
             return falseReturn(message="please try again")

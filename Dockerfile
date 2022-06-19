@@ -1,5 +1,6 @@
 FROM    python:alpine
 LABEL   email="1342104001@qq.com"
+ENV     TZ Asia/Shanghai
 ENV     home /home
 WORKDIR ${home}
 COPY    src/server ${home}/server

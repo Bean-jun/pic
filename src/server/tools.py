@@ -23,3 +23,9 @@ def mkdir(dir):
         os.makedirs(dir)
     except Exception as e:
         pass
+
+
+def clean_path(path):
+    if "\\" in path:
+        return path.replace("\\", "/")
+    return path

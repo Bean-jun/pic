@@ -15,6 +15,4 @@
 
 ## 三、启动
 
-1. `docker-compose build`
-
-2. `docker-compose up -d`
+`docker-compose up -d --build`
