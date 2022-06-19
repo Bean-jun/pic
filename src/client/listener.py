@@ -13,8 +13,8 @@ temp_file = os.path.join(workspace, "temp")
 
 def gen_img_file_path():
     img_path = "img-%s.png" % datetime_add_time(
-        format_datetime(format="%Y%m%d%H%M%S"),
-        format_time())
+        format_datetime(datetime.datetime.now(), format="%Y%m%d%H%M%S"),
+        format_time(time.time()))
     return os.path.join(temp_file, img_path)
 
 
