@@ -1,9 +1,10 @@
-import os
-import time
-import requests
 import datetime
-from PIL import ImageGrab
+import os
+import sys
+import time
 
+import requests
+from PIL import ImageGrab
 
 # 文件白名单
 FILE_EXT_LIST = {
@@ -48,6 +49,8 @@ def check_url(url):
 
 
 def clean_filename(path):
+    if sys.platform == "win32":
+        return path.rsplit("\\", 1)[-1]
     return path.rsplit("/", 1)[-1]
 
 
