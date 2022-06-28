@@ -1,5 +1,7 @@
 # Markdown图床
 
+<h2 style="text-align:center"><img src="./images/pic.png"></img></h2>
+
 ## 一、server
 
 1. server配置
