@@ -24,6 +24,13 @@ def Request(method, url, data=None, json=None, **kwargs):
     return response
 
 
+def Ping(method, url, **kwargs):
+    response = Request(method, url, **kwargs)
+    if response.status_code == 200:
+        return True
+    return False
+
+
 def read_file(path, mode="rb"):
     with open(path, mode) as f:
         return f.read()
