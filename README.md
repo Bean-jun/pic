@@ -15,6 +15,6 @@
 
     例如：`./main http://192.168.1.100:8001/ xxx.png`
 
-## 三、启动
+## 三、server启动
 
 `docker-compose up -d --build`
