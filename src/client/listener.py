@@ -52,6 +52,9 @@ def once(url, link):
     response = Request("POST", url, files={filename: data})
     response_txt = parse_response(response)
 
+    if not response_txt:
+        print("设置剪贴板失败")
+
     if link == "y":
         xerox.copy(response_txt)
     else:
@@ -90,6 +93,10 @@ def more(url, link, sleep):
         filename = clean_filename(filename_or_msg)
         response = Request("POST", url, files={filename: data})
         response_txt = parse_response(response)
+
+        if not response_txt:
+            print("设置剪贴板失败")
+            continue
 
         if link == "y":
             xerox.copy(response_txt)

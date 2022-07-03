@@ -1,12 +1,15 @@
 import os
 
-from flask import current_app, request
+from flask import abort, current_app, request
 from flask.views import MethodView
 
 from tools import *
 
 
 class Resource(MethodView):
+
+    def get(self, *args, **kwargs):
+        abort(400)
 
     def post(self, *args, **kwargs):
         try:

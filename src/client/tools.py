@@ -6,6 +6,8 @@ import time
 import requests
 from PIL import ImageGrab
 
+# 后端支持的请求头设置
+X_PIC_CLIENT = "2d7d584ee8af25622c4b0ae3afa850acdf9e3d03"
 # 文件白名单
 FILE_EXT_LIST = {
     ".png",
@@ -15,13 +17,21 @@ FILE_EXT_LIST = {
 }
 
 
-def Request(method, url, data=None, json=None, **kwargs):
+def _Request(method, url, data=None, json=None, **kwargs):
     response = requests.request(method=method,
                                 url=url,
                                 data=data,
                                 json=json,
                                 **kwargs)
     return response
+
+def Request(method, url, data=None, json=None, **kwargs):
+    headers = {"X-PIC-CLIENT": X_PIC_CLIENT}
+    if hasattr(kwargs, "headers") and isinstance(getattr(kwargs, "headers"), dict):
+        kwargs.get("headers").update(headers)
+    else:
+        kwargs.update({"headers": headers})
+    return _Request(method, url, data=None, json=None, **kwargs)
 
 
 def Ping(method, url, **kwargs):

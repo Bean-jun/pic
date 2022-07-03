@@ -42,6 +42,10 @@ class Task(QThread):
             "POST", self.widgit.line_edit.text(), files={filename: data})
         response_txt = self.widgit.tools.parse_response(response)
 
+        if not response_txt:
+            self.widgit.show_message("设置剪贴板失败\n%s" % response_txt)
+            return
+            
         if self.widgit.link_flag is False:
             xerox.copy(response_txt)
         else:
